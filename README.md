@@ -20,7 +20,7 @@ https://gitmilab.redclara.net/halleyUIS/geant4
 
   1. Copiar la carpeta del ejemplo que vamos a probar
   
-  `cp `
+  `cp -r examples-geant4/basic/B4/B4a/ .`
   
   2. Crear y entrar a la carpeta donde se va a compilar el código
 
@@ -70,5 +70,10 @@ Ahora con más energía (100 MeV)
     
     `.q` (para salir)
    
- Para salir del contenedor 
+ 
+ Para salir y detener el contenedor
+ 
+ `exit`
+ 
+ `docker stop geant4`
 
