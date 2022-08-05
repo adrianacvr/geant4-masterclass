@@ -44,19 +44,19 @@ https://gitmilab.redclara.net/halleyUIS/geant4
     
     Comparar 3 partículas:
     
-    `/gun/particle gamma`
+    `/gun/particle gamma
     
-    `/gun/energy 2 MeV`
+    /gun/energy 2 MeV`
 
 
-    `/gun/particle e-`
+    `/gun/particle e-
     
-    `/gun/energy 2 MeV`
+    /gun/energy 2 MeV`
 
 
-    `/gun/particle mu-`
+    `/gun/particle mu-
 
-    `/gun/energy 2 MeV`
+    /gun/energy 2 MeV`
 
 Ahora con más energía (100 MeV)
 
