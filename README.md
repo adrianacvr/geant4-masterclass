@@ -1,29 +1,35 @@
 # geant4-class
 
-Ingresar a Obatala con la opción de interfaz gráfica
+1. Ingresar a Obatala con la opción de interfaz gráfica
 `ssh -Y usuario@200.16.117.76`
 
-Para crear el contenedor GEANT4 
+2. Para crear el contenedor GEANT4 
 https://gitmilab.redclara.net/halleyUIS/geant4
 
-Iniciar el contenedor
+3. Iniciar el contenedor
 `docker start geant4`
 
-Ingresar al contenedor
+4. Ingresar al contenedor
 `docker exec -it geant4 bash`
 
-Dentro del contenedor:
+5. Dentro del contenedor:
 
-Copiar la carpeta
+  1. Copiar la carpeta del ejemplo que vamos a probar
+  
+  2. Crear carpeta
 
-Crear carpeta
+  3. Compilar código
 
-Compilar código
+  4. Abrir el ejecutable
 
-Abrir el ejecutable
+    En el visualizador
+    `/run/beamOn`
 
-En el visualizador
-`/run/beamOn`
-
-Ejecutar sin visualizador
+  5. Ejecutar sin visualizador
+  6. Ver los histogramas en root
+    root
+    new TBrowser
+    .q (para salir)
+   
+ Para salir del contenedor 
 
