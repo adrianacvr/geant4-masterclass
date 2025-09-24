@@ -1,4 +1,4 @@
-# Geant4 Masterclass: Running a basic example
+# Geant4 Masterclass: Creating and modifying histograms 
 > Author: Adriana Vásquez Ramírez adrianacvr67@gmail.com
 
 This guide walks you through the process of starting a Docker container, modifying the `B4RunAction.cc` file to change histogram parameters, recompiling the code, and finally visualizing the updated histograms in ROOT. 
@@ -12,7 +12,9 @@ Execute
 ## 2. Create a new folder where the updated version of example B4a will be compiled:
     mkdir histos
 
-## 3. Modify the file B4RunAction.cc:
+## 3. Modify the source file B4RunAction.cc:
+The file is in 
+
     cd B4a/src/
 Open the file     
     
