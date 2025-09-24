@@ -1,45 +1,55 @@
-1. Iniciar un contenedor en su local o en obatala:
+# Geant4 Masterclass: Running a basic example
+> Author: Adriana Vásquez Ramírez adrianacvr67@gmail.com
 
-`docker start "docker_name"`
+This guide walks you through the process of starting a Docker container, modifying the `B4RunAction.cc` file to change histogram parameters, recompiling the code, and finally visualizing the updated histograms in ROOT. 
 
-`docker exec -it "docker_name" bash`
+## 1. Start a container locally or in remote (Obatala):
+    docker start "docker_name"
+Execute 
 
-2. Crear una carpeta nueva donde vamos a compilar la nueva versión del ejemplo B4a
+    docker exec -it "docker_name" bash
 
-`mkdir histos`
+## 2. Create a new folder where the updated version of example B4a will be compiled:
+    mkdir histos
 
-3. Modificar el archivo B4RunAction.cc
-
-`cd B4a/src/`
-
-`vim B4RunAction.cc`
+## 3. Modify the file B4RunAction.cc:
+    cd B4a/src/
+Open the file     
     
-    Dentro de B4RunAction.cc:
-    
-    `i` (para editar)
-    
-    Modificar los valores de los histogramas de la línea 64:
-    
+    vim B4RunAction.cc
+
+#### Inside B4RunAction.cc:
+#### - Press i to enter insert mode.
+#### - Update the histogram values at line 64:
+
     // Creating histograms
-    analysisManager->CreateH1("Eabs","Edep in absorber", 10000, 0.,100*MeV);
-    analysisManager->CreateH1("Egap","Edep in gap", 10000, 0., 100*MeV);
-    analysisManager->CreateH1("Labs","trackL in absorber", 1000, 0., 1*m);
-    analysisManager->CreateH1("Lgap","trackL in gap", 1000, 0., 1*m);
+    analysisManager->CreateH1("Eabs","Edep in absorber", 10000, 0., 100MeV);
+    analysisManager->CreateH1("Egap","Edep in gap", 10000, 0., 100MeV);
+    analysisManager->CreateH1("Labs","trackL in absorber", 1000, 0., 1m);
+    analysisManager->CreateH1("Lgap","trackL in gap", 1000, 0., 1m);
+#### - Save changes and exit vim
+    :wq
+
+## 4. Compile the new version in the histos folder:
+    cd ../../histos/
+Recompile the example
+
+    cmake -DGeant4_DIR=/opt/geant4/lib/Geant4-10.3.3/ ../B4a/; make -j2;
+
+## 5. Modify run2.mac to send 1000 gammas of 4 MeV:
+    vim run2.mac
+
+Run the new simulation
     
-    `:wq` (para guardar y salir de vim)
+    ./exampleB4a -m run2.mac
 
-4. Compilar la nueva versión en la carpeta histos
+## 6. Visualize the histograms in B4.root with the new resolution (number of bins):
+    root
+Open your file 
+    
+    new TBrowser
+Exit root 
+    
+    .q
 
-`cd ../../histos/`
 
-`cmake -DGeant4_DIR=/opt/geant4/lib/Geant4-10.3.3/ ../B4a/; make -j2;`
-
-5. Modificar run2.mac para enviar 1000 gammas de 4 MeV
-
-`./exampleB4a -m run2.mac`
-
-6. Visualizar los histogramas de B4.root con la nueva resolución (número de bines)
-
-`root`
-`new TBrowser`
-`.q`
