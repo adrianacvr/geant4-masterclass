@@ -1,65 +1,45 @@
-## WCD de LAGO
+# Geant4 Masterclass: The Water Cherenkov Detector (WCD)
+> Author: Adriana Vásquez Ramírez adrianacvr67@gmail.com
 
-Para simular el Detector Cherenkov de Agua (WCD, en inglés) de LAGO:
+## 1. In docker:
 
-1. Clonar el repositorio 
+Clone this repository and use the folder `wcd_flux_corsika`, which contains the WCD source code.
 
-`git clone https://github.com/adrianacvr/geant4-class.git`
+## 2. In your local: 
 
+Download the CORSIKA file `salidasimu.shw.bz2` in:
 
-2. La carpeta `wcd_flux_corsika` contiene la fuente del código del WCD. La podemos mover al sitio donde tenemos los demás códigos:
+https://drive.google.com/file/d/16BHZksUYniZ5w_Vg9jZYT5K5iQEjy4jt/view
 
-`mv geant4-class/wcd_flux_corsika .`
+Copy it into the `wcd_flux_corsika` source folder as follows:  
 
+    docker cp LOCAL_PATH CONTAINER_NAME:CONTAINER_PATH
 
-3. **En su local:** 
+**On my computer** it would be:  
 
-Descargar el archivo de CORSIKA (https://drive.google.com/file/d/16BHZksUYniZ5w_Vg9jZYT5K5iQEjy4jt/view)
+    cp /Users/macbookpro/Downloads/salidasimu.shw.bz2 geant4-mc:/root/wcd_flux_corsika
 
-Copiarlo en la carpeta fuente `wcd_flux_corsika` de la siguiente manera: 
+## 3. Check in your docker if the file was copied into the `wcd_flux_corsika` folder with the `ls` command:     
+    cd wcd_flux_corsika  
+    ls *.shw.bz2
 
-`docker cp RUTA_LOCAL NOMBRE_CONTENEDOR:RUTA_DEL_CONTENEDOR`
+## 4. Create a new folder to compile the WCD program:  
+    mkdir wcd-build  
+    cd wcd-build  
+    cmake -DGeant4_DIR=/opt/geant4/lib/Geant4-10.3.3/ ../wcd_flux_corsika/; make -j2;
 
+## 5. Visualize the detector:  
+    ./wcd  
+    /run/beamOn
 
-En **mi computador** sería:
+## 6. To simulate the WCD response to the flux of secondary particles in Bucaramanga:  
+Check or modify the number of secondary particles in the `input.in` file:  
 
-`cp /Users/macbookpro/Downloads/salidasimu.shw.bz2 geant4-mc:/root/wcd_flux_corsika`
+    /run/beamOn 10000   #Recommendation for today’s class 
+    /run/beamOn 3855333 #This corresponds to 1 hour of flux per m2 in Bucaramanga
 
+To run the simulation:  
 
-4. Revisar en su docker si el archivo se copió en la carpeta `wcd_flux_corsika` con el comando `ls`
+    time ./wcd -m input.in
 
-`cd wcd_flux_corsika`
-
-`ls *.shw.bz2`
-
-
-5. Crear una carpeta nueva para compilar el programa del WCD
-
-`mkdir wcd-build`
-
-`cd wcd-build`
-
-`cmake -DGeant4_DIR=/opt/geant4/lib/Geant4-10.3.3/ ../wcd_flux_corsika/; make -j2;`
-
-
-6. Visualizar el detector
-
-`./wcd`
-
-`/run/beamOn`
-
-
-7. Para simular la respuesta del WCD al flujo de partículas secundarias en Bucaramanga:
-
-Verifique o cambie el número de partículas secundarias, en el archivo input.in:
-
-`/run/beamOn 10000` (Recomendación para la clase de hoy)
-
-`/run/beamOn 3855333` (Este número corresponde a 1 hora de flujo por m2 en Bucaramanga)
-
-Para ejecutar la simulación:
-
-`time ./wcd -m input.in`
-
-
-8. Revisar y analizar los histogramas obtenidos con 10000 partículas. 
+## 7. Review and analyze the histograms obtained with 10000 particles.
