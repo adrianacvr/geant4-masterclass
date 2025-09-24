@@ -1,81 +1,25 @@
-# Geant4 Masterclass: Running a basic example
+# Geant4 Masterclass
 > Author: Adriana Vásquez Ramírez adrianacvr67@gmail.com
 
-This guide walks you through running a **Geant4 simulation inside a container** on a remote server. 
+This repository provides step-by-step instructions for running Geant4 exercises on a remote server using a Docker container with Geant4 pre-installed. The activities are designed as a practical introduction to detector simulations, data visualization, and data analysis workflows combining Geant4, ROOT, and Python.
 
+The following list summarizes the activities included in this masterclass:
 
-## 1. Connect to the remote server (with graphical interface enabled)
-`ssh -Y user@200.16.117.76`
+## 1. Running a basic example
+In the file `basic_example.md`, you will find step-by-step instructions to run a simple Geant4 example. You will learn how to visualize the geometry, adjust the energy, type, and number of interacting particles, and use ROOT to inspect the results of the interaction.
 
-## 2. Create the Geant4 container from the provided repository
-Reference: https://gitmilab.redclara.net/halleyUIS/geant4
+## 2. Data visualization
+In this module, you will practice refining the histograms obtained in the previous exercise. You will explore how to adjust the binning, range, titles, and variables to be plotted. Follow the guidelines in `basic_example_histograms.md`.
 
-## 3. Start the container
-`docker start geant4`
+## 3. Histograms from ROOT to Python with uproot
+Often, it is more practical to work with histograms directly in Python, especially when making small adjustments such as changing the binning, without recompiling the Geant4 code. 
 
-## 4. Access the container
-`docker exec -it geant4 bash`
+For those who prefer Python workflows, you can convert `.root` output files into Python arrays using the `uproot` library. The file `uproot_example.md` provides an example of how to make this conversion and continue your analysis in Python.
 
-## 5. Inside the container: 
-### a. Copy the example to be tested
-`cp -r examples-geant4/basic/B4/B4a/ .`
+## 4. Simulation of a particle detector: Scintillator Bar
+In this module, you will move on to a more sophisticated detector: the scintillator bar of the Muon Telescope (MuTe). You will investigate how the detector responds to muons and electrons crossing the bar at different positions. Instructions can be found in `scintillator_bar.md`.
 
-### b. Create and move into a build directory
-`mkdir B4a-build`
+## 5. Simulation of a particle detector: Water Cherenkov Detector
+Finally, you will run a full simulation to study the response of a Water Cherenkov Detector (WCD) to secondary particles in Bucaramanga, Colombia. For this, use the `wcd_flux_corsika` folder along with the instructions in `water_cherenkov_detector.md`. 
 
-`cd B4a-build`
-
-### c. Compile the code
-`cmake -DGeant4_DIR=/opt/geant4/lib/Geant4-10.3.3/ ../B4a/`
-
-`make -j2`
-
-### d. Run the executable
-`./exampleB4a`
-
-### e. In the visualization window, generate events
-`/run/beamOn 1`
-
-### f. Compare particle interactions with 2 MeV
-`/gun/particle gamma`
-
-`/gun/energy 2 MeV`
-
-`/run/beamOn 1`
-
----
-
-`/gun/particle e-`
-
-`/gun/energy 2 MeV`
-
-`/run/beamOn 1`
-
----
-
-`/gun/particle mu-`
-
-`/gun/energy 2 MeV`
-
-`/run/beamOn 1`
-
----
-
-### g. Repeat with higher energy (100 MeV)
-
-### h. Run simulations without visualization 
-`./exampleB4a -m run2.mac > outputfile.out`
-
-### i. Open ROOT to inspect histograms in the output file
-`root`
-
-`new TBrowser`
-
-`Select outputfile.out`
-
-`.q`  to quit ROOT
-
-## 6. Exit and stop the container to close the session
-`exit`
-
-`docker stop geant4`
+If you have any questions, feel free to contact me.
